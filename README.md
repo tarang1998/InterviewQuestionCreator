@@ -1,3 +1,3 @@
 # InterviewQuestionCreator
 
-- [Interview Question Generator](./screenshots/InterviewQuestionGenerator.png)
+- ![Interview Question Generator](./screenshots/InterviewQuestionGenerator.png)
