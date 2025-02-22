@@ -1,0 +1,53 @@
+Question,Answer
+1. What is the goal of using hashing in data structures?,"The goal of using hashing in data structures is to achieve faster search and dynamic operations by mapping keys to a smaller range and using a hash function to store and retrieve items efficiently. Hashing helps in reducing the time complexity of operations like find, insert, and delete to O(1) on average, making it a valuable technique for implementing data structures."
+2. Explain the concept of a hash function and its role in hashing.,"A hash function is a crucial component in hashing, a technique used in computer science to efficiently store and retrieve data in a data structure like a hash table. The hash function takes an input (often a key or data) and maps it to a fixed-size value, known as a hash code or hash value. This hash value is used as an index to store or retrieve the corresponding data in the hash table.
+
+The role of a hash function is to minimize the number of collisions, which occur when two different inputs produce the same hash value. Collisions can lead to inefficiencies in data retrieval. A good hash function aims to evenly distribute the data across the hash table, reducing the likelihood of collisions and ensuring efficient access to stored information.
+
+There are different types of hash functions, such as division-based hashing and universal hashing. Universal hashing, in particular, is considered theoretically good because it helps minimize collisions by providing a family of hash functions from which one can be randomly chosen. This randomness helps in achieving shorter chain lengths in the hash table, leading to better performance in terms of data retrieval."
+3. What is a collision in hashing and how is it typically handled?,"A collision in hashing occurs when two different keys are mapped to the same index in the hash table by the hash function. This can happen due to the finite range of the hash function compared to the potentially infinite number of keys that need to be stored.
+
+Collisions are typically handled in two main ways:
+1. **Open Addressing**: In this method, when a collision occurs, the algorithm searches for an alternative location in the hash table to store the colliding key. This can involve probing different locations until an empty slot is found. It's a bit more complex to analyze but is commonly used in practice.
+   
+2. **Chaining**: In this method, collisions are handled by storing multiple keys that hash to the same index in a linked list or another data structure (a chain). This way, each index in the hash table can store multiple keys. If the chain size is kept small (ideally O(1)), all operations can still be performed in O(1) time."
+4. What is the difference between open addressing and chaining in handling collisions?,"Open addressing and chaining are two common techniques used to handle collisions in hash tables:
+
+1. **Open Addressing**: In open addressing, when a collision occurs (i.e., two keys hash to the same index), the algorithm looks for another empty slot in the hash table to place the collided item. This can involve probing methods like linear probing, quadratic probing, or double hashing. The main idea is to find an alternative location within the same hash table to store the collided item.
+
+2. **Chaining**: In chaining, when a collision occurs, instead of finding another slot within the hash table, the collided items are stored in a separate data structure (typically a linked list or a binary search tree) associated with the index where the collision happened. Each index in the hash table contains a pointer to the head of the chain of collided items. This way, multiple items can be stored at the same index without causing conflicts.
+
+The key difference between the two approaches is in how they handle collisions: open addressing looks for alternative slots within the hash table, while chaining stores collided items in separate data structures linked to the original hash table."
+5. What are some characteristics of a good hash function?,"Some characteristics of a good hash function include:
+- Avoiding symmetries of the stored keys
+- Large primes that are far from powers of 2 and 10 can be reasonable
+- Ensuring that the keys are uniformly distributed
+- Having a low collision rate to minimize chain sizes
+- Being able to map keys to a smaller range effectively"
+6. Describe the Division and Universal hash functions and their differences.,"The Division hash function, denoted as h(k) = (k mod m), is a simple heuristic that works well when keys are uniformly distributed. It is recommended to choose a value for m that avoids symmetries of the stored keys, such as large primes far from powers of 2 and 10. However, if the number of keys is significantly larger than the size of the hash table (n > m), every hash function will have some input set that creates a chain of size O(n).
+
+On the other hand, the Universal hash function, denoted as hab(k) = (((ak + b) mod p) mod m), is a theoretically good hash function. It belongs to a Universal family of hash functions, where a and b are chosen from a range {0, ..., p - 1} with a ≠ 0. This hash function is parameterized by a fixed prime p greater than the number of keys u. The key advantage of a Universal hash function is that it implies short chain lengths in expectation, leading to efficient operations.
+
+In summary, the Division hash function is a simple heuristic that works well with uniformly distributed keys but may lead to larger chain sizes if the number of keys is significantly larger than the hash table size. The Universal hash function, on the other hand, is theoretically good and provides short chain lengths in expectation, making it a preferred choice for efficient hashing operations."
+7. How does universality in hash functions help in reducing chain lengths?,"Universality in hash functions helps in reducing chain lengths by ensuring that the probability of multiple keys mapping to the same location is minimized. A universal hash function family ensures that the probability of two different keys colliding to the same index is low. This property leads to shorter chain lengths on average, which in turn improves the efficiency of operations on the hash table."
+8. How can a hash table implement dynamic set operations in expected amortized O(1) time?,"A hash table can implement dynamic set operations in expected amortized O(1) time by using a good hash function and handling collisions efficiently. By storing collisions in another data structure like a chain, the chain size can be kept at O(1) if the keys are evenly distributed over indices. This allows for constant time operations within the chain. Additionally, if the load factor is kept at O(1), the expected size of the chain remains constant. When the load factor deviates significantly from 1, the hash table can be rebuilt with a new randomly chosen hash function for a new size, ensuring efficient dynamic set operations. This approach allows for expected amortized O(1) time complexity for dynamic set operations in a hash table."
+9. What is the significance of the load factor in hash tables?,"The load factor in hash tables is significant because it determines the ratio of the number of stored elements (n) to the number of buckets (m) in the hash table. A load factor of O(1) indicates that the hash table is well-balanced, with each bucket containing a reasonable number of elements. This balance ensures that operations like insertions, deletions, and searches can be performed in O(1) time complexity. However, if the load factor deviates significantly from 1, it may lead to collisions and degrade the performance of the hash table. In such cases, it is recommended to rehash the table with a new hash function and a different size to maintain an optimal load factor."
+10. How does the Direct Access Array differ from a Hash Table in terms of operations and efficiency?,"The Direct Access Array and Hash Table differ in terms of operations and efficiency as follows:
+
+1. **Operations**:
+   - **Direct Access Array**: 
+     - **Static Container**: It supports operations like build(X), find(k), insert(x), delete(k), find min(), find max(), find prev(k), and find next(k).
+     - **Dynamic Container**: It allows for O(1) time random access indexing, making find and dynamic operations very efficient.
+   - **Hash Table**:
+     - **Static Container**: It supports operations like find(k), insert(x), and delete(k) efficiently.
+     - **Dynamic Container**: It can dynamically adjust its size and hash function to maintain efficiency in operations.
+
+2. **Efficiency**:
+   - **Direct Access Array**: 
+     - **Static**: It has a constant time complexity for find and dynamic operations due to O(1) time random access indexing.
+     - **Dynamic**: It can be inefficient in terms of space if the number of elements (n) is significantly smaller than the range of keys (u).
+   - **Hash Table**:
+     - **Static**: It can achieve O(1) time complexity for operations like find, insert, and delete when using a good hash function.
+     - **Dynamic**: It can dynamically adjust its size and hash function to maintain efficiency even with changing data sizes.
+
+In summary, the Direct Access Array excels in constant time access for static operations but may consume more space, while the Hash Table provides efficient dynamic operations by dynamically adjusting its size and hash function."
